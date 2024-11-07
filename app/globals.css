@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "react-vertical-timeline-component/style.min.css";
 
 html {
   --line-color: #e5e7eb;
