@@ -19,7 +19,12 @@ export const getErrorMessage = (error: unknown): string => {
   } else if (typeof error === "string") {
     message = error;
   } else {
-    message = "Something went wrong";
+    message = "Something went wrong. Please try again later.";
+  }
+
+  // Clean the message for user display
+  if (message.includes("RESEND_API_KEY")) {
+    message = "Email service configuration error. Please try again later.";
   }
 
   return message;

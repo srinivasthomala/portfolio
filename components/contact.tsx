@@ -11,6 +11,28 @@ import SubmitBtn from "./submit-btn";
 export default function Contact() {
   const { ref } = useSectionInView("Contact");
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const response = await sendEmail(formData);
+
+      if (response.error) {
+        toast.error(response.error);
+        return;
+      }
+
+      toast.success("Email sent successfully!");
+      e.currentTarget.reset();
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <motion.section
       id="contact"
@@ -33,24 +55,15 @@ export default function Contact() {
 
       <p className="text-gray-700 -mt-6 dark:text-white/80">
         Please contact me directly at{" "}
-        <a className="underline" href="mailto:example@gmail.com">
-          example@gmail.com
+        <a className="underline" href="mailto:srinivasthomala@gmail.com">
+          srinivasthomala@gmail.com
         </a>{" "}
         or through this form.
       </p>
 
       <form
         className="mt-10 flex flex-col dark:text-black"
-        action={async (formData) => {
-          const { data, error } = await sendEmail(formData);
-
-          if (error) {
-            toast.error(error);
-            return;
-          }
-
-          toast.success("Email sent successfully!");
-        }}
+        action={handleSubmit}
       >
         <input
           className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
@@ -71,4 +84,7 @@ export default function Contact() {
       </form>
     </motion.section>
   );
+}
+function setIsLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
 }

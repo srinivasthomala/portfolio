@@ -11,8 +11,8 @@ import "react-vertical-timeline-component/style.min.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Ricardo | Personal Portfolio",
-  description: "Ricardo is a full-stack developer with 8 years of experience.",
+  title: "Srinivas | Personal Portfolio",
+  description: "Srinivas is a full-stack developer with 5 years of experience.",
 };
 
 export default function RootLayout({

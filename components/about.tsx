@@ -18,32 +18,64 @@ export default function About() {
       id="about"
     >
       <SectionHeading>About me</SectionHeading>
-      <p className="mb-3">
-        After graduating with a degree in{" "}
-        <span className="font-medium">Accounting</span>, I decided to pursue my
-        passion for programming. I enrolled in a coding bootcamp and learned{" "}
-        <span className="font-medium">full-stack web development</span>.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
-        feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
-        <span className="font-medium">
-          React, Next.js, Node.js, and MongoDB
-        </span>
-        . I am also familiar with TypeScript and Prisma. I am always looking to
-        learn new technologies. I am currently looking for a{" "}
-        <span className="font-medium">full-time position</span> as a software
-        developer.
+      <p className="mb-5">
+        <span>As a seasoned </span>
+        <span className="font-semibold">Software Engineer</span> with a strong
+        academic background in{" "}
+        <span className="font-medium">Computer Science</span>, I have gained
+        extensive experience in{" "}
+        <span className="italic">developing and optimizing software</span>{" "}
+        across various domains.
       </p>
 
-      <p>
-        <span className="italic">When I'm not coding</span>, I enjoy playing
-        video games, watching movies, and playing with my dog. I also enjoy{" "}
-        <span className="font-medium">learning new things</span>. I am currently
-        learning about{" "}
-        <span className="font-medium">history and philosophy</span>. I'm also
-        learning how to play the guitar.
+      <p className="mb-5">
+        My professional journey includes working at{" "}
+        <span className="font-semibold">Bloomberg L.P.</span>, where I enhanced
+        system performance, worked on open-source technologies, and developed
+        client-centric features. I also contributed to video processing
+        innovations at <span className="font-semibold">Ittiam Systems</span>,
+        where I optimized algorithms, improved software efficiency, and ensured
+        secure deployments.
       </p>
+
+      <p className="mb-5">
+        My technical expertise spans languages like{" "}
+        <span className="font-bold">Python, C++, and JavaScript</span>, along
+        with proficiency in frameworks such as{" "}
+        <span className="font-bold">React, Node.js, and Django</span>.
+      </p>
+
+      <p className="mb-5">
+        I have a <span className="italic">proven track record</span> of
+        developing{" "}
+        <span className="font-semibold">high-performance applications</span>,
+        including web apps, database systems, and automation tools. I'm
+        passionate about leveraging technology to solve complex problems and
+        deliver scalable solutions that meet business needs.
+      </p>
+
+      <p className="mb-8">
+        In addition to my technical skills, I've demonstrated leadership by{" "}
+        <span className="font-semibold">mentoring junior engineers</span> and{" "}
+        <span className="font-semibold">leading large student cohorts</span>{" "}
+        during my academic tenure.
+      </p>
+
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
+        <p className="text-gray-700 dark:text-gray-300">
+          <span className="font-semibold">When I'm not coding</span>, you'll
+          find me{" "}
+          <span className="italic">
+            gaming, watching films, and spending quality time with friends
+          </span>
+          . I'm passionate about{" "}
+          <span className="font-medium">learning new things</span>. Currently,
+          I'm training in{" "}
+          <span className="font-semibold">Mixed Martial Arts (MMA)</span> and
+          exploring my musical side by{" "}
+          <span className="italic">learning to play the guitar</span>.
+        </p>
+      </div>
     </motion.section>
   );
 }

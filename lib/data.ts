@@ -2,9 +2,9 @@ import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import corpcommentImg from "@/public/corpcomment.png";
-import rmtdevImg from "@/public/rmtdev.png";
-import wordanalyticsImg from "@/public/wordanalytics.png";
+import restaurantImg from "@/public/restaurant.png";
+import databaseImg from "@/public/database.png";
+import collisionGameImg from "@/public/collisionGame.png";
 
 export const links = [
   {
@@ -35,73 +35,108 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated bootcamp",
-    location: "Miami, FL",
+    title: "Software Engineer",
+    location: "New York, United States",
     description:
-      "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
-    icon: React.createElement(LuGraduationCap),
-    date: "2019",
-  },
-  {
-    title: "Front-End Developer",
-    location: "Orlando, FL",
-    description:
-      "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
+      "At Bloomberg L.P., I enhance system performance and user experience using Python, C++, React, Kafka, and Redis. I improve platform stability through bug fixes, UI refinements, and backend optimizations. I've introduced open-source technologies, developed client-centric features, and optimized trade processing systems. I also design disaster recovery architectures ensuring reliable data handling with minimal downtime.",
     icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2021",
+    date: "Jun 2021 - Present",
   },
   {
-    title: "Full-Stack Developer",
-    location: "Houston, TX",
+    title: "Master of Science in Computer Science",
+    location: "University of Florida",
     description:
-      "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma and MongoDB. I'm open to full-time opportunities.",
-    icon: React.createElement(FaReact),
-    date: "2021 - present",
+      "Completed my Master's degree in Computer Science, focusing on advanced computing concepts and software engineering principles.",
+    icon: React.createElement(LuGraduationCap),
+    date: "Aug 2019 - May 2021",
+  },
+  {
+    title: "Software Engineer",
+    location: "Bengaluru, India",
+    description:
+      "At Ittiam Systems, I enhanced video processing through innovative solutions. I improved video quality through algorithm changes and redesigned the software encoder as a multi-threaded application. I optimized performance by porting C/C++ code to Arm Assembly and addressed security vulnerabilities in the Android video library. I also developed automation scripts in Perl and Python to streamline core functionalities.",
+    icon: React.createElement(CgWorkAlt),
+    date: "Jul 2017 - Jul 2019",
+  },
+  {
+    title: "Bachelor of Science in Computer Engineering",
+    location: "National Institute of Technology Karnataka",
+    description:
+      "Completed my undergraduate degree in Computer Engineering. Actively participated in student leadership as a Class Representative and member of the Students Council, developing both technical and leadership skills.",
+    icon: React.createElement(LuGraduationCap),
+    date: "Aug 2013 - May 2017",
+  },
+  {
+    title: "Software Intern",
+    location: "Bengaluru, India",
+    description:
+      "Designed and implemented a deinterlace software application improving video rendering speed through GPU processing. Migrated a video codec from C/C++ on CPU to OpenCL on GPU for enhanced performance. Gained valuable experience in optimizing software for high-performance computing environments.",
+    icon: React.createElement(CgWorkAlt),
+    date: "May 2016 - Jul 2016",
   },
 ] as const;
 
 export const projectsData = [
   {
-    title: "CorpComment",
+    title: "Restaurant App",
     description:
-      "I worked as a full-stack developer on this startup project for 2 years. Users can give public feedback to companies.",
-    tags: ["React", "Next.js", "MongoDB", "Tailwind", "Prisma"],
-    imageUrl: corpcommentImg,
+      "A webapp which mimics a basic restaurant functionality. Website is built using NodeJS & Express on the backend with MongoDB as a database.",
+    tags: ["NodeJS", "Express", "MongoDB"],
+    imageUrl: restaurantImg,
   },
   {
-    title: "rmtDev",
+    title: "Database System Implementation",
     description:
-      "Job board for remote developer jobs. I was the front-end developer. It has features like filtering, sorting and pagination.",
-    tags: ["React", "TypeScript", "Next.js", "Tailwind", "Redux"],
-    imageUrl: rmtdevImg,
+      "Developed a single-user database management system is implemented using C++. It supports a subset of SQL (select, project, and join) and three basic relational algebra operations.",
+    tags: ["C++"],
+    imageUrl: databaseImg,
   },
   {
-    title: "Word Analytics",
+    title: "Collision Game",
     description:
-      "A public web app for quick analytics on text. It shows word count, character count and social media post limits.",
-    tags: ["React", "Next.js", "SQL", "Tailwind", "Framer"],
-    imageUrl: wordanalyticsImg,
+      "Developed using JavaScript. You are a monster and have to chase red balls in order to survive. Eating other color balls will make you die and you will lose the game. To see the 'You Win' message try to complete level 5.",
+    tags: ["JavaScript"],
+    imageUrl: collisionGameImg,
   },
 ] as const;
 
 export const skillsData = [
-  "HTML",
-  "CSS",
+  // Languages
+  "C",
+  "C++",
+  "Java",
+  "Python",
   "JavaScript",
   "TypeScript",
+  "HTML",
+  "CSS",
+
+  // Frameworks & Libraries
   "React",
-  "Next.js",
   "Node.js",
-  "Git",
-  "Tailwind",
-  "Prisma",
-  "MongoDB",
-  "Redux",
-  "GraphQL",
-  "Apollo",
   "Express",
+  "Flask",
+  "Bootstrap",
+  "Next.js",
+  "Tailwind",
+
+  // Databases
+  "MongoDB",
+  "MySQL",
   "PostgreSQL",
-  "Python",
-  "Django",
-  "Framer Motion",
+  "SQLite",
+  "Redis",
+
+  // Tools & Platforms
+  "Git",
+  "RESTful APIs",
+  "JSON",
+
+  // Core Skills
+  "Data Structures",
+  "Algorithms",
+  "Object-Oriented Programming",
+  "Test-Driven Development",
+  "Software Development Life Cycle",
+  "Agile Methodology",
 ] as const;
