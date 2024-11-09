@@ -1,38 +1,91 @@
 ---
-title: "Test Article"
+title: "Testing Code Syntax Highlighting"
 publishedAt: "2024-01-20"
-summary: "Testing code blocks"
-tags: ["Code"]
+summary: "A test article showcasing code syntax highlighting"
+tags: ["Code", "Tutorial"]
 ---
 
-# Test Article
+# Code Examples
 
-Here's some `inline code` in a paragraph.
-
-Here's a code block:
+## TypeScript Example
 
 ```typescript
-function greet(name: string): string {
-  return `Hello, ${name}!`;
+interface User {
+  id: number;
+  name: string;
+  email: string;
 }
 
-// Test the function
-const message = greet("World");
-console.log(message);
+function greetUser(user: User): string {
+  return `Hello, ${user.name}!`;
+}
+
+// Create a new user
+const user: User = {
+  id: 1,
+  name: "John Doe",
+  email: "john@example.com",
+};
+
+console.log(greetUser(user));
 ```
 
-And here's a Python example:
+## Python Example
 
 ```python
-def fibonacci(n):
+def fibonacci(n: int) -> int:
     if n <= 1:
         return n
     return fibonacci(n-1) + fibonacci(n-2)
 
 # Test the function
-print(fibonacci(10))
+result = fibonacci(10)
+print(f"The 10th Fibonacci number is: {result}")
 ```
 
-## Another Section
+## JavaScript Example
 
-Regular paragraph text continues here.
+```javascript
+const fruits = ["apple", "banana", "orange"];
+
+fruits.forEach((fruit, index) => {
+  console.log(`${index + 1}. ${fruit}`);
+});
+
+// Using array methods
+const upperFruits = fruits
+  .map((fruit) => fruit.toUpperCase())
+  .filter((fruit) => fruit.length > 5);
+```
+
+## CSS Example
+
+```css
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+```
+
+This article demonstrates syntax highlighting for different programming languages. Each code block should be properly highlighted with appropriate colors for:
+
+- Keywords
+- Strings
+- Numbers
+- Comments
+- Functions
+- Variables

@@ -9,39 +9,35 @@ import collisionGameImg from "@/public/collisionGame.png";
 export const links = [
   {
     name: "Home",
-    hash: "#home",
+    hash: "/#home",
   },
   {
     name: "About",
-    hash: "#about",
+    hash: "/#about",
   },
   {
     name: "Projects",
-    hash: "#projects",
+    hash: "/#projects",
   },
   {
     name: "Skills",
-    hash: "#skills",
+    hash: "/#skills",
   },
   {
     name: "Experience",
-    hash: "#experience",
+    hash: "/#experience",
   },
   {
     name: "Contact",
-    hash: "#contact",
+    hash: "/#contact",
   },
   {
     name: "Articles",
     hash: "/articles",
-    isRoute: true,
-  },
-  {
-    name: "Blog",
-    hash: "/blog",
-    isRoute: true,
   },
 ] as const;
+
+export type SectionName = (typeof links)[number]["name"];
 
 export const experiencesData = [
   {

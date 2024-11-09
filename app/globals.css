@@ -5,6 +5,12 @@
 
 html {
   --line-color: #e5e7eb;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+}
+
+body {
+  overscroll-behavior-y: none;
 }
 
 html.dark {
@@ -51,4 +57,94 @@ pre code {
 
 :not(pre) > code {
   @apply bg-gray-200 dark:bg-gray-800 rounded px-1 py-0.5 text-gray-900 dark:text-gray-200;
+}
+
+/* Syntax highlighting colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #8b949e;
+}
+
+.token.punctuation {
+  color: #c9d1d9;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #79c0ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a5d6ff;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #d2a8ff;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #ff7b72;
+}
+
+.token.function,
+.token.class-name {
+  color: #d2a8ff;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #ffa657;
+}
+
+/* Image styles */
+.image-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-4 my-6;
+}
+
+.image-wrapper {
+  @apply relative overflow-hidden rounded-lg;
+}
+
+.image-caption {
+  @apply text-sm text-gray-600 dark:text-gray-400 mt-2 text-center;
+}
+
+figure {
+  @apply my-6;
+}
+
+figcaption {
+  @apply text-sm text-gray-600 dark:text-gray-400 mt-2 text-center;
+}
+
+/* Add these image size classes */
+.img-small {
+  max-width: 300px !important;
+}
+
+.img-medium {
+  max-width: 600px !important;
+}
+
+.img-large {
+  max-width: 900px !important;
 }

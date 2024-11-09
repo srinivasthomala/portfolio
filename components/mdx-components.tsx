@@ -1,25 +1,56 @@
 "use client";
 
-interface CodeBlockProps {
-  children: string;
-  className?: string;
-}
+import Image from "next/image";
 
-const CodeBlock = ({ children, className }: CodeBlockProps) => {
-  const language = className?.replace("language-", "");
-
+const CustomImage = ({ src, alt }: { src: string; alt: string }) => {
   return (
-    <div className="relative w-full max-w-[100vw] sm:max-w-[45rem]">
-      <pre className="overflow-x-auto p-4 rounded-lg my-6 bg-gray-100 dark:bg-gray-800">
-        <code className={className}>{children}</code>
-      </pre>
+    <div className="relative my-6">
+      <Image
+        src={src}
+        alt={alt}
+        width={800}
+        height={500}
+        className="rounded-lg mx-auto"
+        quality={90}
+        loading="lazy"
+      />
+      {alt && (
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
+          {alt}
+        </p>
+      )}
     </div>
   );
 };
 
 const components = {
-  pre: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  code: CodeBlock,
+  pre: ({ children, ...props }: { children: React.ReactNode }) => {
+    return (
+      <pre
+        className="overflow-x-auto p-4 rounded-lg my-6 bg-[#0d1117]"
+        {...props}
+      >
+        {children}
+      </pre>
+    );
+  },
+  code: ({
+    children,
+    className,
+  }: {
+    children: React.ReactNode;
+    className?: string;
+  }) => {
+    if (!className) {
+      return (
+        <code className="bg-gray-200 dark:bg-gray-800 rounded px-1 py-0.5 text-gray-900 dark:text-gray-200">
+          {children}
+        </code>
+      );
+    }
+    return <code className={className}>{children}</code>;
+  },
+  img: CustomImage,
   h1: ({ children }: { children: React.ReactNode }) => (
     <h1 className="text-3xl font-bold mb-4 mt-8">{children}</h1>
   ),
