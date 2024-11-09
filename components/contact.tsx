@@ -1,6 +1,5 @@
 "use client";
 
-import { sendEmail } from "@/actions/sendEmail";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -10,6 +9,39 @@ import SectionHeading from "./section-heading";
 export default function Contact() {
   const { ref } = useSectionInView("Contact");
   const [pending, setPending] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("senderEmail");
+    const message = formData.get("message");
+
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        body: JSON.stringify({ email, message }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+
+      if (data.error) {
+        toast.error(data.error);
+        return;
+      }
+
+      toast.success("Email sent successfully!");
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <motion.section
@@ -25,28 +57,7 @@ export default function Contact() {
 
       <form
         className="mt-10 flex flex-col dark:text-black"
-        action={async (formData) => {
-          setPending(true);
-
-          try {
-            const response = await sendEmail(formData);
-
-            if (response.error) {
-              toast.error(response.error);
-              return;
-            }
-
-            toast.success("Email sent successfully!");
-            (
-              document.getElementById("contact-form") as HTMLFormElement
-            )?.reset();
-          } catch (error) {
-            toast.error("Something went wrong. Please try again later.");
-          } finally {
-            setPending(false);
-          }
-        }}
-        id="contact-form"
+        onSubmit={handleSubmit}
       >
         <input
           className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
