@@ -2,23 +2,14 @@
 
 import React from "react";
 import { Resend } from "resend";
-import { validateString, getErrorMessage } from "@/lib/utils";
+import { validateString } from "@/lib/utils";
 import ContactFormEmail from "@/email/contact-form-email";
 
-// Check if API key exists
-if (!process.env.RESEND_API_KEY) {
-  throw new Error(
-    "Missing RESEND_API_KEY environment variable. Please add it to your .env file"
-  );
-}
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-export const sendEmail = async (formData: FormData) => {
+export async function sendEmail(formData: FormData) {
   const senderEmail = formData.get("senderEmail");
   const message = formData.get("message");
 
-  // Simple server-side validation
+  // Validation
   if (!validateString(senderEmail, 500)) {
     return {
       error: "Invalid sender email",
@@ -31,6 +22,8 @@ export const sendEmail = async (formData: FormData) => {
   }
 
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const { data, error } = await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>",
       to: "srinivasthomala@gmail.com",
@@ -50,17 +43,10 @@ export const sendEmail = async (formData: FormData) => {
 
     return {
       success: true,
-      data,
     };
   } catch (error: unknown) {
-    // Log error for debugging
-    if (process.env.NODE_ENV === "development") {
-      console.error("Email error:", error);
-    }
-
     return {
-      error:
-        "Failed to send email. However, if you received a confirmation, the message was sent successfully.",
+      error: "Failed to send email. Please try again later.",
     };
   }
-};
+}
