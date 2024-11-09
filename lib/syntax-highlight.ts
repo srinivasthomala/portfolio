@@ -1,19 +1,12 @@
-import shiki from "shiki";
+import { codeToHtml } from "shiki";
 
-let highlighter: any = null;
-
-export async function initHighlighter() {
-  highlighter = await shiki.getHighlighter({
-    theme: "github-dark",
-  });
-}
-
-export function highlightCode(code: string, lang: string = "text") {
-  if (!highlighter) {
-    return code;
-  }
+export async function highlightCode(code: string, lang: string = "text") {
   try {
-    return highlighter.codeToHtml(code, { lang });
+    return await codeToHtml(code, {
+      lang,
+      theme: "github-dark",
+      transformers: [],
+    });
   } catch (e) {
     return code;
   }
