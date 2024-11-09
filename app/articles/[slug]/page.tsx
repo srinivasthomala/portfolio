@@ -6,6 +6,14 @@ import matter from "gray-matter";
 import { BsArrowLeft } from "react-icons/bs";
 import Link from "next/link";
 import { parseMarkdown } from "@/lib/markdown";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+  AwaitedReactNode,
+  Key,
+} from "react";
 
 export default async function ArticlePage({
   params,
@@ -44,14 +52,28 @@ export default async function ArticlePage({
           {article.title}
         </h1>
         <div className="flex flex-wrap gap-2 mt-4">
-          {article.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full dark:text-white/70"
-            >
-              {tag}
-            </span>
-          ))}
+          {article.tags.map(
+            (
+              tag:
+                | string
+                | number
+                | boolean
+                | ReactElement<any, string | JSXElementConstructor<any>>
+                | Iterable<ReactNode>
+                | ReactPortal
+                | Promise<AwaitedReactNode>
+                | null
+                | undefined,
+              index: Key | null | undefined
+            ) => (
+              <span
+                key={index}
+                className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full dark:text-white/70"
+              >
+                {tag}
+              </span>
+            )
+          )}
         </div>
       </header>
 
