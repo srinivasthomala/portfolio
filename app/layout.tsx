@@ -6,13 +6,14 @@ import Footer from "@/components/footer";
 import ThemeSwitch from "@/components/theme-switch";
 import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
-import "react-vertical-timeline-component/style.min.css";
+import "highlight.js/styles/github-dark.css";
+import "prismjs/themes/prism-tomorrow.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Srinivas | Personal Portfolio",
-  description: "Srinivas is a full-stack developer with 5 years of experience.",
+  description: "Srinivas is a full-stack developer...",
 };
 
 export default function RootLayout({
@@ -31,11 +32,12 @@ export default function RootLayout({
         <ThemeContextProvider>
           <ActiveSectionContextProvider>
             <Header />
-            {children}
-            <Footer />
-
-            <Toaster position="top-right" />
+            <div className="min-h-screen flex flex-col">
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
             <ThemeSwitch />
+            <Toaster position="top-right" />
           </ActiveSectionContextProvider>
         </ThemeContextProvider>
       </body>

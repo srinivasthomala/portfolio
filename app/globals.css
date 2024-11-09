@@ -14,3 +14,41 @@ html.dark {
 .borderBlack {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+/* Add this to your existing CSS */
+[data-rehype-pretty-code-fragment] {
+  @apply overflow-hidden rounded-lg border border-gray-800;
+}
+
+[data-rehype-pretty-code-fragment] pre {
+  @apply overflow-x-auto py-4 text-sm leading-6;
+}
+
+[data-rehype-pretty-code-fragment] code {
+  @apply grid;
+}
+
+[data-rehype-pretty-code-fragment] .line {
+  @apply px-4 min-h-[1.5rem] w-full;
+}
+
+[data-rehype-pretty-code-fragment] .line--highlighted {
+  @apply bg-gray-800/50;
+}
+
+[data-rehype-pretty-code-fragment] .word--highlighted {
+  @apply bg-gray-800/50 rounded;
+}
+
+/* Add these styles for code blocks */
+pre {
+  @apply overflow-x-auto p-4 rounded-lg my-6 bg-gray-900 dark:bg-gray-800;
+}
+
+pre code {
+  @apply text-gray-100 dark:text-gray-200 text-sm font-mono;
+}
+
+:not(pre) > code {
+  @apply bg-gray-200 dark:bg-gray-800 rounded px-1 py-0.5 text-gray-900 dark:text-gray-200;
+}

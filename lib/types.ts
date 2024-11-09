@@ -8,3 +8,19 @@ export type VerticalElementType = {
   date: string;
   icon: React.FunctionComponentElement<any>;
 };
+
+export type Article = {
+  slug: string;
+  title: string;
+  publishedAt: string;
+  summary: string;
+  tags: string[];
+};
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  publishedAt: string;
+  summary: string;
+  tags: string[];
+};

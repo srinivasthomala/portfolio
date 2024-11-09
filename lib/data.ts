@@ -31,6 +31,16 @@ export const links = [
     name: "Contact",
     hash: "#contact",
   },
+  {
+    name: "Articles",
+    hash: "/articles",
+    isRoute: true,
+  },
+  {
+    name: "Blog",
+    hash: "/blog",
+    isRoute: true,
+  },
 ] as const;
 
 export const experiencesData = [
