@@ -2,40 +2,50 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const articlesDirectory = path.join(process.cwd(), "content/articles");
-
 export function getArticles() {
-  if (!fs.existsSync(articlesDirectory)) {
-    return [];
+  const articlesDir = path.join(process.cwd(), "content/articles");
+
+  // Create directory if it doesn't exist
+  if (!fs.existsSync(articlesDir)) {
+    fs.mkdirSync(articlesDir, { recursive: true });
+    return []; // Return empty array if no articles exist
   }
 
-  const fileNames = fs.readdirSync(articlesDirectory);
-  const articles = fileNames
-    .filter((fileName) => fileName.endsWith(".mdx"))
-    .map((fileName) => {
-      const slug = fileName.replace(/\.mdx$/, "");
-      const fullPath = path.join(articlesDirectory, fileName);
+  const files = fs.readdirSync(articlesDir);
+
+  const articles = files
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => {
+      const fullPath = path.join(articlesDir, file);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data } = matter(fileContents);
+      const slug = file.replace(".mdx", "");
 
       return {
-        slug,
         title: data.title,
         publishedAt: data.publishedAt,
         summary: data.summary,
-        tags: data.tags || [],
+        tags: data.tags,
+        slug,
       };
-    });
-
-  return articles.sort((a, b) => {
-    return (
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
-  });
+
+  return articles;
 }
 
 export function getBlogs() {
   const blogDir = path.join(process.cwd(), "content/blog");
+
+  // Create directory if it doesn't exist
+  if (!fs.existsSync(blogDir)) {
+    fs.mkdirSync(blogDir, { recursive: true });
+    return []; // Return empty array if no posts exist
+  }
+
   const files = fs.readdirSync(blogDir);
 
   const blogs = files
