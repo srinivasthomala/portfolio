@@ -4,9 +4,10 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { BsArrowRight, BsLinkedin } from "react-icons/bs";
+import { BsArrowDown, BsLinkedin } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
 import { FaGithubSquare } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import profilePic from "@/public/profile.jpg";
@@ -64,9 +65,8 @@ export default function Intro() {
         animate={{ opacity: 1, y: 0 }}
       >
         Hello, I'm Srinivas. I'm a Full-Stack Software Engineer with 5 years of
-        experience at Bloomberg and Ittiam Systems. I specialize in{" "}
-        <span className="italic">high-performance applications</span> with
-        expertise in{" "}
+        experience. I enjoy building{" "}
+        <span className="italic">software and apps</span> with expertise in{" "}
         <span className="underline">Python, C++, and JavaScript</span>.
       </motion.h1>
 
@@ -87,7 +87,7 @@ export default function Intro() {
           }}
         >
           Contact me here{" "}
-          <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
+          <BsArrowDown className="opacity-70 group-hover:translate-y-1 transition" />
         </Link>
 
         <a
@@ -108,11 +108,19 @@ export default function Intro() {
         </a>
 
         <a
-          className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+          className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
           href="https://github.com/srinivasthomala"
           target="_blank"
         >
           <FaGithubSquare />
+        </a>
+
+        <a
+          className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+          href="https://x.com/srinivasthomala"
+          target="_blank"
+        >
+          <FaXTwitter />
         </a>
       </motion.div>
     </section>

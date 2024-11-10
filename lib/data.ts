@@ -1,6 +1,5 @@
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
-import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import restaurantImg from "@/public/restaurant.png";
 import databaseImg from "@/public/database.png";
@@ -9,29 +8,29 @@ import collisionGameImg from "@/public/collisionGame.png";
 export const links = [
   {
     name: "Home",
-    hash: "#home",
-  },
-  {
-    name: "About",
-    hash: "#about",
+    hash: "/",
   },
   {
     name: "Projects",
-    hash: "#projects",
-  },
-  {
-    name: "Skills",
-    hash: "#skills",
+    hash: "/projects",
   },
   {
     name: "Experience",
-    hash: "#experience",
+    hash: "/experience",
   },
   {
-    name: "Contact",
-    hash: "#contact",
+    name: "Articles",
+    hash: "/articles",
+  },
+  {
+    name: "Blog",
+    hash: "/blog",
   },
 ] as const;
+
+export type ActiveSectionType = (typeof links)[number]["name"] | "Contact";
+
+export type SectionName = (typeof links)[number]["name"];
 
 export const experiencesData = [
   {

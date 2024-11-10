@@ -4,14 +4,22 @@ import { useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { VerticalTimelineElement } from "react-vertical-timeline-component";
 import { useTheme } from "@/context/theme-context";
-import { type VerticalElementType } from "@/lib/types";
+
+interface VerticalElementProps {
+  title: string;
+  description: string;
+  date: string;
+  icon: React.ReactElement;
+  location: string;
+}
 
 const VerticalElement = ({
   title,
   description,
   date,
   icon,
-}: VerticalElementType) => {
+  location,
+}: VerticalElementProps) => {
   const { theme } = useTheme();
   const { ref, inView } = useInView({ threshold: 0.25, triggerOnce: true });
 
@@ -41,9 +49,8 @@ const VerticalElement = ({
       <h3 className="font-semibold capitalize" ref={ref}>
         {title}
       </h3>
-      <p className="!mt-2 !font-normal text-gray-700 dark:text-white/75">
-        {description}
-      </p>
+      <p className="!mt-0 font-normal">{location}</p>
+      <p className="!mt-1 !font-normal">{description}</p>
     </VerticalTimelineElement>
   );
 };
