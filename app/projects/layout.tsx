@@ -1,4 +1,4 @@
-export default function ArticlesLayout({
+export default function ProjectsLayout({
   children,
 }: {
   children: React.ReactNode;

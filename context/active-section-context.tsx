@@ -1,6 +1,6 @@
 "use client";
 
-import type { SectionName } from "@/lib/types";
+import type { ActiveSectionType } from "@/lib/data";
 import React, { useState, createContext, useContext } from "react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -10,8 +10,8 @@ type ActiveSectionContextProviderProps = {
 };
 
 type ActiveSectionContextType = {
-  activeSection: SectionName;
-  setActiveSection: React.Dispatch<React.SetStateAction<SectionName>>;
+  activeSection: ActiveSectionType;
+  setActiveSection: React.Dispatch<React.SetStateAction<ActiveSectionType>>;
   timeOfLastClick: number;
   setTimeOfLastClick: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -22,7 +22,7 @@ export const ActiveSectionContext =
 export default function ActiveSectionContextProvider({
   children,
 }: ActiveSectionContextProviderProps) {
-  const [activeSection, setActiveSection] = useState<SectionName>("Home");
+  const [activeSection, setActiveSection] = useState<ActiveSectionType>("Home");
   const [timeOfLastClick, setTimeOfLastClick] = useState(0);
   const pathname = usePathname();
 

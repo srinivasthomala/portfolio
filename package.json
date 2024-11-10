@@ -50,6 +50,7 @@
     "typescript": "5.4.2"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/react-vertical-timeline-component": "^3.3.6",
     "autoprefixer": "^10.4.20",

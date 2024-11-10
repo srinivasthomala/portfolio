@@ -6,8 +6,8 @@ export default function ArticlesPage() {
   const articles = getArticles();
 
   return (
-    <main className="flex min-h-screen flex-col items-center">
-      <section className="max-w-[45rem] w-full px-4 sm:px-8 fixed top-24 sm:top-28">
+    <div className="flex flex-col items-center pt-8 sm:pt-10 min-h-screen">
+      <section className="max-w-[45rem] w-full px-4 sm:px-8 mb-28">
         <SectionHeading>Technical Articles</SectionHeading>
         <div className="flex flex-col gap-4">
           {articles.map((article) => (
@@ -15,6 +15,6 @@ export default function ArticlesPage() {
           ))}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

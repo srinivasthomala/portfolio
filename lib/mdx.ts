@@ -33,3 +33,31 @@ export function getArticles() {
     );
   });
 }
+
+export function getBlogs() {
+  const blogDir = path.join(process.cwd(), "content/blog");
+  const files = fs.readdirSync(blogDir);
+
+  const blogs = files
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => {
+      const fullPath = path.join(blogDir, file);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data } = matter(fileContents);
+      const slug = file.replace(".mdx", "");
+
+      return {
+        title: data.title,
+        publishedAt: data.publishedAt,
+        summary: data.summary,
+        tags: data.tags,
+        slug,
+      };
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+
+  return blogs;
+}

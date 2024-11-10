@@ -1,4 +1,3 @@
-import { useMDXComponent } from "next-mdx-remote/rsc";
 import { highlight } from "sugar-high";
 import React from "react";
 
