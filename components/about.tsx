@@ -14,63 +14,34 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-5">
-        <span>As a seasoned </span>
-        <span className="font-semibold">Software Engineer</span> with a strong
-        academic background in{" "}
-        <span className="font-medium">Computer Science</span>, I have gained
-        extensive experience in{" "}
-        <span className="italic">developing and optimizing software</span>{" "}
-        across various domains.
+        As a <span className="font-semibold">Software Engineer</span> at{" "}
+        <span className="font-semibold">Bloomberg L.P.</span>, I specialize in
+        enhancing system performance and user experience using{" "}
+        <span className="font-medium">Python, C++, and React</span>. My work
+        involves optimizing trade processing systems, developing client-centric
+        features, and designing reliable disaster recovery architectures.
       </p>
 
       <p className="mb-5">
-        My professional journey includes working at{" "}
-        <span className="font-semibold">Bloomberg L.P.</span>, where I enhanced
-        system performance, worked on open-source technologies, and developed
-        client-centric features. I also contributed to video processing
-        innovations at <span className="font-semibold">Ittiam Systems</span>,
-        where I optimized algorithms, improved software efficiency, and ensured
-        secure deployments.
+        With a <span className="font-medium">Master's in Computer Science</span>{" "}
+        from the University of Florida and experience at{" "}
+        <span className="font-semibold">Ittiam Systems</span>, I've developed
+        expertise in system architecture, algorithm optimization, and software
+        security. My technical skills span across{" "}
+        <span className="italic">
+          web development, distributed systems, and high-performance computing
+        </span>
+        .
       </p>
 
       <p className="mb-5">
-        My technical expertise spans languages like{" "}
-        <span className="font-bold">Python, C++, and JavaScript</span>, along
-        with proficiency in frameworks such as{" "}
-        <span className="font-bold">React, Node.js, and Django</span>.
+        <span className="font-semibold">Beyond coding</span>, I'm passionate
+        about <span className="italic">gaming, anime, and watching films</span>.
+        Currently, I'm training in{" "}
+        <span className="font-semibold">Mixed Martial Arts (MMA)</span> and
+        learning to play the guitar, always seeking new challenges and ways to
+        grow both personally and professionally.
       </p>
-
-      <p className="mb-5">
-        I have a <span className="italic">proven track record</span> of
-        developing{" "}
-        <span className="font-semibold">high-performance applications</span>,
-        including web apps, database systems, and automation tools. I'm
-        passionate about leveraging technology to solve complex problems and
-        deliver scalable solutions that meet business needs.
-      </p>
-
-      <p className="mb-8">
-        In addition to my technical skills, I've demonstrated leadership by{" "}
-        <span className="font-semibold">mentoring junior engineers</span> and{" "}
-        <span className="font-semibold">leading large student cohorts</span>{" "}
-        during my academic tenure.
-      </p>
-
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
-        <p className="text-gray-700 dark:text-gray-300">
-          <span className="font-semibold">When I'm not coding</span>, you'll
-          find me{" "}
-          <span className="italic">
-            gaming, watching films, and spending quality time with friends
-          </span>
-          . I'm passionate about{" "}
-          <span className="font-medium">learning new things</span>. Currently,
-          I'm training in{" "}
-          <span className="font-semibold">Mixed Martial Arts (MMA)</span> and
-          exploring my musical side by{" "}
-          <span className="italic">learning to play the guitar</span>.
-        </p>
-      </div>
     </motion.section>
   );
 }
