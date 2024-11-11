@@ -13,6 +13,7 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.0.3",
     "@react-email/components": "^0.0.27",
+    "@react-email/render": "^1.0.2",
     "@react-email/tailwind": "^1.0.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "20.11.28",
@@ -32,6 +33,7 @@
     "micromark-extension-gfm": "^3.0.0",
     "next": "^14.2.17",
     "next-mdx-remote": "^5.0.0",
+    "nodemailer": "^6.9.16",
     "prism-react-renderer": "^2.4.0",
     "prismjs": "^1.29.0",
     "react": "18.2.0",
@@ -53,6 +55,7 @@
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.15",
+    "@types/nodemailer": "^6.4.16",
     "@types/react-vertical-timeline-component": "^3.3.6",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
