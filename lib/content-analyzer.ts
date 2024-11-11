@@ -75,7 +75,6 @@ export class ContentAnalyzer {
 
   static analyze(content: string): ContentAnalysis {
     if (!content || typeof content !== "string") {
-      console.log("Invalid content received:", content); // Debug log
       return {
         isProfane: false,
         isSuspicious: false,
@@ -84,13 +83,8 @@ export class ContentAnalyzer {
       };
     }
 
-    console.log("Analyzing content:", content); // Debug log
-
     const normalizedText = this.normalizeText(content);
     const profanityCheck = this.checkProfanity(normalizedText);
-
-    console.log("Profanity check result:", profanityCheck); // Debug log
-
     const suspiciousCheck = this.checkSuspiciousContent(content);
     const toxicityScore = this.calculateToxicityScore(content);
 
@@ -114,13 +108,11 @@ export class ContentAnalyzer {
 
     const directProfanity = /\b(fuck|shit|ass|bitch|cunt)\b/gi;
     if (directProfanity.test(lowercaseText)) {
-      console.log("Direct profanity found:", text); // Debug log
       return { detected: true, reason: "Direct profanity detected" };
     }
 
     for (const [type, pattern] of Object.entries(this.PROFANITY_PATTERNS)) {
       if (pattern.test(lowercaseText)) {
-        console.log(`${type} profanity found:`, text); // Debug log
         return { detected: true, reason: `Detected ${type} profanity` };
       }
     }
