@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import SectionHeading from "./section-heading";
+import { sendEmail } from "@/actions/sendEmail";
 
 export default function Contact() {
   const { ref } = useSectionInView("Contact");
@@ -15,22 +16,12 @@ export default function Contact() {
     setPending(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("senderEmail");
-    const message = formData.get("message");
 
     try {
-      const res = await fetch("/api/send", {
-        method: "POST",
-        body: JSON.stringify({ email, message }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const result = await sendEmail(formData);
 
-      const data = await res.json();
-
-      if (data.error) {
-        toast.error(data.error);
+      if (result.error) {
+        toast.error(result.error);
         return;
       }
 
