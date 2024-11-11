@@ -1,0 +1,255 @@
+---
+title: "Building a Modern Portfolio with Next.js 14: From Tutorial to Customization"
+publishedAt: "2024-11-11"
+summary: "A detailed walkthrough of how I built my portfolio website, starting from ByteGrad's tutorial and adding custom features like blog integration and pages router"
+tags: ["Next.js", "TypeScript", "Portfolio", "Web Development"]
+---
+
+When I decided to build my portfolio website, I wanted it to be more than just a showcase of my work. I envisioned a platform that would allow me to share both technical articles and personal blog posts while maintaining a clean, professional appearance.
+
+## Starting Point: ByteGrad's Tutorial
+
+I began with [ByteGrad's excellent tutorial](https://www.youtube.com/watch?v=sUKptmUVIBM), which provided a solid foundation with:
+
+- Modern tech stack (Next.js 14, TypeScript, Tailwind CSS)
+- Clean component architecture
+- Responsive design principles
+- Framer Motion animations
+- Email integration
+- Dark mode implementation
+
+## Key Modifications and Enhancements
+
+### 1. Migration to Pages Router
+
+### Original vs. Modified Architecture
+
+ByteGrad's tutorial implements a single-page portfolio where all sections (About, Experience, Projects, Contact) exist on one page, using smooth scroll navigation between sections:
+
+```typescript
+// Original single-page approach
+export default function Home() {
+  return (
+    <main>
+      <Intro />
+      <About />
+      <Projects />
+      <Skills />
+      <Experience />
+      <Contact />
+    </main>
+  );
+}
+```
+
+I modified this to a multi-page architecture where each section is its own page, providing several advantages:
+
+```typescript
+// New pages-based structure
+pages/
+├── index.tsx          // Home page
+├── about.tsx          // About page
+├── projects.tsx       // Projects page
+├── experience.tsx     // Experience page
+├── contact.tsx        // Contact page
+├── articles/          // Technical articles section
+│   ├── index.tsx     // Articles listing
+│   └── [slug].tsx    // Individual article pages
+└── blog/             // Personal blog section
+    ├── index.tsx     // Blog posts listing
+    └── [slug].tsx    // Individual blog posts
+```
+
+### Benefits of the New Architecture
+
+1. **Content Organization**
+
+   - Clear separation between portfolio sections and content pages
+   - Dedicated spaces for technical articles and blog posts
+   - Better URL structure (e.g., `/articles/nextjs-tutorial` instead of `/#articles`)
+
+2. **SEO Advantages**
+
+   - Individual pages are better for search engine indexing
+   - Unique meta tags for each page
+   - Clearer content hierarchy
+
+3. **Enhanced User Experience**
+
+   - Direct linking to specific content
+   - Traditional navigation with browser back/forward support
+   - Cleaner loading states
+
+4. **Content Management**
+   - Easier integration of MDX for articles and blog posts
+   - Simplified content organization in separate directories
+   - More scalable as content grows
+
+### Implementation Details
+
+The navigation was updated to support the new structure:
+
+```typescript
+// components/navigation.tsx
+const links = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Projects", path: "/projects" },
+  { name: "Articles", path: "/articles" },
+  { name: "Blog", path: "/blog" },
+  { name: "Contact", path: "/contact" },
+];
+```
+
+Each page maintains its own state and layout while sharing common components:
+
+```typescript
+// pages/articles/index.tsx
+export default function ArticlesPage() {
+  return (
+    <Layout>
+      <Header title="Technical Articles" />
+      <ArticlesList articles={articles} />
+      <Pagination />
+    </Layout>
+  );
+}
+```
+
+This architecture made it possible to:
+
+- Add dedicated sections for technical articles and blog posts
+- Implement proper content management with MDX
+- Create better navigation experience
+- Scale the content more effectively
+
+### 2. Content Management with MDX
+
+Implemented a dual-content system:
+
+```typescript
+// lib/mdx.ts
+export function getArticles() {
+  const articlesDir = path.join(process.cwd(), "content/articles");
+  // ... content processing logic
+}
+
+export function getBlogs() {
+  const blogDir = path.join(process.cwd(), "content/blog");
+  // ... content processing logic
+}
+```
+
+### 3. Dual Content Sections
+
+Created separate sections for different content types:
+
+- **Technical Articles**: In-depth technical tutorials and guides
+- **Personal Blog**: More casual posts about career, interests, and journey
+
+### 4. Enhanced Date Handling
+
+Implemented proper timezone handling for content dates:
+
+```typescript
+const publishedAt = data.publishedAt.includes("T")
+  ? data.publishedAt
+  : `${data.publishedAt}T00:00:00-05:00`;
+```
+
+### 5. Dynamic Page Generation
+
+Set up dynamic routing for both articles and blog posts:
+
+```typescript
+// pages/blog/[slug].tsx and pages/articles/[slug].tsx
+export async function getStaticPaths() {
+  // Generate paths for all content files
+}
+
+export async function getStaticProps({ params }) {
+  // Fetch and process content for each page
+}
+```
+
+## Technical Stack Details
+
+### Core Technologies
+
+- **Next.js 14**: For server-side rendering and optimal performance
+- **TypeScript**: For type safety and better development experience
+- **Tailwind CSS**: For rapid styling and responsive design
+- **Framer Motion**: For smooth animations and transitions
+
+### Content Management
+
+- **MDX**: For writing content with JSX components
+- **gray-matter**: For parsing frontmatter in MDX files
+- **date-fns**: For consistent date formatting
+
+### Development Tools
+
+- **ESLint**: For code quality
+- **Prettier**: For consistent code formatting
+- **VS Code**: Primary development environment
+
+## Key Features
+
+1. **Responsive Design**
+
+   - Mobile-first approach
+   - Fluid typography
+   - Adaptive layouts
+
+2. **Dark Mode**
+
+   - System preference detection
+   - Persistent user preference
+   - Smooth transitions
+
+3. **Performance Optimization**
+
+   - Static page generation
+   - Optimized images
+   - Efficient routing
+
+4. **Content Organization**
+   - Clear separation of technical and personal content
+   - Tag-based categorization
+   - Easy content management
+
+## Challenges and Solutions
+
+### 1. MDX Integration
+
+Challenge: Setting up MDX with Pages Router
+Solution: Custom content processing pipeline
+
+### 2. Date Handling
+
+Challenge: Timezone inconsistencies
+Solution: Standardized date formatting with proper timezone handling
+
+### 3. Content Structure
+
+Challenge: Organizing different types of content
+Solution: Separate directories with shared processing logic
+
+## Future Enhancements
+
+Planning to add:
+
+- Search functionality
+- Tag filtering
+- Related content suggestions
+- Newsletter integration
+- Comments section
+
+## Conclusion
+
+This project evolved from a basic portfolio to a full-fledged content platform. While ByteGrad's tutorial provided an excellent foundation, the customizations and enhancements made it uniquely suited to my needs.
+
+Check out the live site at [srinivasthomala.com](https://srinivasthomala.com)  
+The source code is available on my [GitHub](https://github.com/srinivasthomala/portfolio), and I welcome any feedback or suggestions for improvement.
+
+Stay tuned for more technical articles about specific features and future enhancements!
