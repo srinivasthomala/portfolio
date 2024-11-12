@@ -1,0 +1,167 @@
+---
+title: "Add a Professional Contact Form to Your Website in Minutes"
+publishedAt: "2024-11-11"
+summary: "Learn how to easily add a secure contact form with email integration and content moderation to your website using Next.js and Resend."
+tags: ["Next.js", "React", "Email", "Security", "Resend"]
+---
+
+# Adding a Professional Contact Form to Your Website
+
+Ever wanted to add a contact form to your website but thought it would be too complicated? In this guide, I'll show you how to create a professional contact form with email integration and content moderation - and it's easier than you might think!
+
+## What We'll Build
+
+- A beautiful contact form with dark mode support
+- Email integration that actually works
+- Basic protection against spam and inappropriate content
+
+## Understanding Resend: The Easy Way to Send Emails
+
+Resend is like Gmail for your website - it's a simple service that lets your website send emails. Instead of setting up complex email servers, you just:
+
+1. Sign up at [Resend](https://resend.com)
+2. Get an API key
+3. Use it to send emails
+
+It's that simple! Here's what makes Resend great:
+
+- Free tier for developers
+- Simple setup process
+- Beautiful email templates
+- Reliable delivery
+
+## Step 1: Setting Up
+
+First, install the necessary packages:
+
+```bash
+npm install resend @react-email/components
+```
+
+Add your Resend API key to your `.env` file:
+
+```bash
+RESEND_API_KEY=your_api_key_here
+```
+
+## Step 2: Creating the Contact Form
+
+Here's a simple form component that looks great and handles submissions:
+
+```typescript
+export default function Contact() {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const result = await sendEmail(formData);
+
+    if (result.success) {
+      toast.success("Message sent!");
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="email" placeholder="Your email" />
+      <textarea placeholder="Your message" />
+      <button type="submit">Send</button>
+    </form>
+  );
+}
+```
+
+## Step 3: Setting Up Email Sending
+
+Creating an email template is as simple as writing React components:
+
+```typescript
+export default function ContactFormEmail({ message, senderEmail }) {
+  return (
+    <Html>
+      <Body>
+        <Heading>New message from your website</Heading>
+        <Text>{message}</Text>
+        <Text>From: {senderEmail}</Text>
+      </Body>
+    </Html>
+  );
+}
+```
+
+## Step 4: Adding Content Moderation
+
+Now, here's where it gets interesting. We want to protect our form from inappropriate content, but we don't need anything complex. Here's a simple approach:
+
+```typescript
+export class ContentAnalyzer {
+  // Simple check for inappropriate content
+  static analyze(content: string) {
+    const suspicious = [
+      // List of patterns to check
+      /\b(spam|inappropriate)\b/i,
+      /[A-Z]{10,}/, // Too many caps
+      /(http|ftp|https):\/\//i, // Links
+    ];
+
+    return {
+      isSafe: !suspicious.some((pattern) => pattern.test(content)),
+      reason: "Contains inappropriate content",
+    };
+  }
+}
+```
+
+That's it! This simple checker can:
+
+- Detect inappropriate words
+- Spot suspicious patterns
+- Block obvious spam
+
+## Putting It All Together
+
+Here's how we use everything together:
+
+```typescript
+export async function sendEmail(formData: FormData) {
+  const message = formData.get("message");
+
+  // Check content
+  if (!ContentAnalyzer.analyze(message).isSafe) {
+    return { error: "Please keep messages appropriate" };
+  }
+
+  // Send email
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  await resend.emails.send({
+    from: "Your Website <onboarding@resend.dev>",
+    to: "your@email.com",
+    subject: "New Contact Message",
+    react: ContactFormEmail({ message, senderEmail }),
+  });
+}
+```
+
+## That's Really It!
+
+You now have a professional contact form that:
+
+- Sends emails reliably
+- Looks great
+- Works in dark mode
+- Blocks inappropriate content
+- Handles errors gracefully
+
+The best part? You can customize each piece to match your needs:
+
+- Add more content checks
+- Customize the email template
+- Style the form to match your site
+- Add rate limiting if needed
+
+## Next Steps
+
+- [Sign up for Resend](https://resend.com)
+- [Check out React Email](https://react.email)
+- [View the complete code](https://github.com/srinivasthomala/portfolio)
+
+Remember: You don't need complex solutions for every problem. Sometimes, simple and straightforward is the best approach!

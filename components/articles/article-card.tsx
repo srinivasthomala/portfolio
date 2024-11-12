@@ -3,20 +3,25 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
+import { format } from "date-fns";
 
 type ArticleCardProps = {
   title: string;
   summary: string;
+  publishedAt: string;
+  tags?: string[];
   slug: string;
-  tags: string[];
 };
 
 export default function ArticleCard({
   title,
   summary,
+  publishedAt,
+  tags = [],
   slug,
-  tags,
 }: ArticleCardProps) {
+  const formattedDate = format(new Date(publishedAt), "MMMM d, yyyy");
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 100 }}
@@ -31,7 +36,7 @@ export default function ArticleCard({
               {summary}
             </p>
             <div className="flex flex-wrap mt-4 gap-2">
-              {tags.map((tag, index) => (
+              {tags?.map((tag, index) => (
                 <span
                   key={index}
                   className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full dark:text-white/70"
@@ -40,6 +45,9 @@ export default function ArticleCard({
                 </span>
               ))}
             </div>
+            <time className="block mt-6 text-gray-700 dark:text-gray-300">
+              {formattedDate}
+            </time>
             <div className="flex items-center gap-2 mt-4 text-gray-700 dark:text-white/70">
               <span className="text-sm">Read More</span>
               <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
