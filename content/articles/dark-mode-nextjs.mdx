@@ -1,0 +1,388 @@
+---
+title: "How to Easily Add Dark Mode to Your Next.js Website"
+publishedAt: "2024-11-23"
+summary: "Learn how to easily add dark mode to your Next.js website with system preferences detection, smooth transitions, and persistent settings"
+tags: ["Next.js", "Dark Mode", "Tailwind CSS", "Web Development"]
+---
+
+# How to Easily Add Dark Mode to Your Next.js Website
+
+When I saw dark modes on some websites, I always wondered how they did it. Every component smoothly transitioning when I switched the mode - was it simply reversing the colors, or was there more to it? I wanted to build it into my website one day.
+
+I recently added dark mode to my portfolio website, and I came to know it isn't that hard but also not too simple to implement. In this guide, I'll show you how to do it in simple steps, breaking down each part of the process.
+
+## My Journey with Dark Mode
+
+Before diving into the code, let me share my experience. When I started implementing dark mode, I had a few requirements:
+
+- It should feel natural and smooth
+- It shouldn't flash the wrong theme when loading
+- It should remember user's preference
+- It should match system settings by default
+
+After some research and experimentation, I found a solution that checks all these boxes. Let me show you how.
+
+## Understanding the Basics
+
+The first thing I learned was that dark mode isn't just about inverting colors. It's about:
+
+- Choosing the right color palette for each mode
+- Managing state across the entire application
+- Handling user preferences effectively
+- Creating smooth transitions
+
+## Step-by-Step Implementation
+
+### 1. Setting Up the Foundation
+
+First, let's set up Tailwind CSS for dark mode:
+
+```js
+module.exports = {
+  darkMode: "class",
+  // ... rest of your config
+};
+```
+
+Create a theme provider to manage the state:
+
+```tsx
+"use client";
+
+import { createContext, useContext, useEffect, useState } from "react";
+
+type Theme = "light" | "dark";
+
+type ThemeContextType = {
+  theme: Theme;
+  toggleTheme: () => void;
+};
+
+const ThemeContext = createContext<ThemeContextType | null>(null);
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>("light");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as Theme;
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+      .matches
+      ? "dark"
+      : "light";
+
+    setTheme(savedTheme || systemTheme);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+```
+
+### 2. Creating the Theme Toggle
+
+Build a simple toggle button:
+
+```tsx
+"use client";
+
+import { useTheme } from "./theme-provider";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
+
+export function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+    >
+      {theme === "light" ? (
+        <MoonIcon className="w-5 h-5" />
+      ) : (
+        <SunIcon className="w-5 h-5" />
+      )}
+    </button>
+  );
+}
+```
+
+### 3. Preventing Flash of Wrong Theme
+
+This was tricky! I added this script to my `layout.tsx` to prevent the flash:
+
+```tsx
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function getTheme() {
+                  const savedTheme = localStorage.getItem('theme')
+                  if (savedTheme) return savedTheme
+
+                  return window.matchMedia('(prefers-color-scheme: dark)').matches
+                    ? 'dark'
+                    : 'light'
+                }
+
+                document.documentElement.classList.toggle(
+                  'dark',
+                  getTheme() === 'dark'
+                )
+              })()
+            `,
+          }}
+        />
+      </head>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### 4. Styling Your Components
+
+Here's how I style components to support both themes:
+
+```tsx
+export function Card({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="
+      bg-white dark:bg-gray-800
+      text-gray-900 dark:text-gray-100
+      border border-gray-200 dark:border-gray-700
+      rounded-lg p-6
+      transition-colors duration-200
+    "
+    >
+      {children}
+    </div>
+  );
+}
+```
+
+### 5. Adding Smooth Transitions
+
+To make theme changes smooth, I added these styles to my global CSS:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-200;
+  }
+}
+```
+
+## Common Challenges I Faced
+
+### 1. The Flash of Incorrect Theme
+
+When I first implemented dark mode, users would see a flash of light theme before the dark theme loaded. This happened because:
+
+- The theme check happens after JavaScript loads
+- The initial HTML renders with default (light) theme
+
+**Solution:**
+I added a small script in the document head that runs before the page renders. This script:
+
+- Checks localStorage for any saved preference
+- Falls back to system dark mode preference if no saved theme
+- Applies the correct theme immediately
+
+```tsx
+// Add this script to the <head> of your document
+const themeScript = `
+  (function() {
+    // Check localStorage first
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+      return;
+    }
+    
+    // Fall back to system preference
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.toggle("dark", systemTheme);
+  })()
+`;
+```
+
+### 2. Transition Timing Issues
+
+Initially, my color transitions felt either too slow or too jarring. After testing different durations:
+
+**Solution:**
+I found that 200ms provides the perfect balance - quick enough to feel responsive but slow enough to be noticeable. I applied this transition to all color changes using Tailwind's base layer. For elements that shouldn't animate (like loading states), I added a utility class to disable transitions.
+
+```css
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  /* Exclude certain elements from transition */
+  .no-transition {
+    @apply transition-none;
+  }
+}
+```
+
+### 3. Color Palette Challenges
+
+Some colors that looked great in light mode didn't work well in dark mode. The key is avoiding pure black and white.
+
+**Solution:**
+Instead of using extreme contrasts, I used Tailwind's zinc scale which provides softer, more natural colors. Dark grays are easier on the eyes than pure black, and slightly off-white is more comfortable than pure white.
+
+```tsx
+// Don't use pure black/white
+const badExample = {
+  light: "bg-white text-black", // Too harsh
+  dark: "dark:bg-black dark:text-white", // Too extreme
+};
+
+// Instead, use softer colors
+const goodExample = {
+  light: "bg-zinc-50 text-zinc-900", // Softer light theme
+  dark: "dark:bg-zinc-900 dark:text-zinc-100", // Easier on eyes
+};
+```
+
+### 4. System Preference Changes
+
+Initially missed handling real-time system preference changes. Users switching their system theme wouldn't see updates until refresh.
+
+**Solution:**
+I added a media query listener that updates the theme when system preferences change, but only if the user hasn't set a manual preference. This respects both system changes and user choices.
+
+```tsx
+useEffect(() => {
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const handleChange = (e: MediaQueryListEvent) => {
+    if (!localStorage.getItem("theme")) {
+      setTheme(e.matches ? "dark" : "light");
+    }
+  };
+
+  mediaQuery.addEventListener("change", handleChange);
+  return () => mediaQuery.removeEventListener("change", handleChange);
+}, []);
+```
+
+### 5. Images and Dark Mode
+
+Some images, especially those with light backgrounds, looked out of place in dark mode.
+
+**Solution:**
+I created an adaptive image component that slightly inverts images in dark mode. This maintains visibility while matching the theme. The transition duration matches our color transitions for consistency.
+
+```tsx
+export function AdaptiveImage({ src, alt }: ImageProps) {
+  return (
+    <div className="dark:invert-[.95] transition-[filter] duration-200">
+      <Image
+        src={src}
+        alt={alt}
+        className="rounded-lg bg-white dark:bg-zinc-900"
+      />
+    </div>
+  );
+}
+```
+
+## Testing Your Implementation
+
+Here's my checklist for testing dark mode:
+
+- Check initial load in both modes
+- Test system preference detection
+- Verify smooth transitions
+- Ensure persistence across refreshes
+
+## Next Steps and Improvements
+
+After implementing the basic dark mode, here are some ways you can enhance it:
+
+### 1. Toggle Animation
+
+Add a smooth animation to your theme toggle:
+
+```tsx
+export function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className="relative overflow-hidden rounded-lg bg-zinc-100 p-2 
+                hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+    >
+      <div
+        className={`transition-transform duration-200 ${
+          theme === "dark" ? "-rotate-180" : "rotate-0"
+        }`}
+      >
+        {theme === "light" ? (
+          <MoonIcon className="h-5 w-5" />
+        ) : (
+          <SunIcon className="h-5 w-5" />
+        )}
+      </div>
+    </button>
+  );
+}
+```
+
+### 2. Performance Optimization
+
+- Use CSS variables for dynamic values
+- Minimize DOM updates during theme changes
+- Lazy load theme-specific assets
+
+### 3. Edge Cases
+
+- Handle prefers-reduced-motion
+- Support high contrast mode
+- Manage iframe content themes
+- Handle third-party widget themes
+
+### 4. User Experience
+
+- Add theme switch sound effects
+- Save theme preference to user account
+- Add keyboard shortcuts for theme toggle
+- Provide theme switch preview
+
+## Conclusion
+
+Looking back, implementing dark mode was a rewarding experience. It not only improved my website's user experience but also taught me valuable lessons about state management and user preferences.
+
+Feel free to check out the implementation in my [GitHub repository](https://github.com/srinivasthomala/portfolio)!
